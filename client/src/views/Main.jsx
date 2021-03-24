@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import Axios from 'axios';
-// import {Link} from '@reach/router';
+import {Link} from '@reach/router';
+import Create from './Create'
 
 const Main = props => {
     const [products, setProducts] = useState([]);
@@ -11,8 +12,16 @@ const Main = props => {
             .catch(err => console.log(err))
     }, []);
 
+    const handleDestroyProduct = id => {
+        Axios.delete(`http://localhost/api/products/${id}`)
+            .then(res => setProducts(res.data.results))
+            .catch(err => console.log(err))
+    }
+
   return(
-    products ? 
+    <>
+    <Create></Create>
+    {/* products ?  */}
         <table className="table table-hover col-10 mx-auto">
           <thead>
             <tr>
@@ -33,14 +42,21 @@ const Main = props => {
                   <td>{p.price}</td>
                   <td>{p.description}</td>
                   <td>
+                    <Link className="btn btn-warning" to={`/edit/${p._id}`}>Edit</Link>
+                    <button 
+                    className="btn btn-danger"
+                    onClick={() => handleDestroyProduct(p._id)}>Delete</button>
+                    <Link to={`/show/${p._id}`} className="btn btn-success">View Product</Link>
 
                   </td>
               </tr>
             })
             }
           </tbody>
-        </table> :
-        <h2>Loading...</h2>
+        </table> 
+        {/* <h2>Loading...</h2> */}
+        
+        </>
   );
 }
 

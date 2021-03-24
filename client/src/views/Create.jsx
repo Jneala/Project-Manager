@@ -6,7 +6,13 @@ import { navigate } from '@reach/router';
 const Create = props => {
     const [product, setProduct] = useState({
       title: "",
-      price: null,
+      price: '',
+      description: ""
+    })
+
+    const [errors,setErrors] = useState({
+      title: "",
+      price: '',
       description: ""
     })
 
@@ -21,7 +27,11 @@ const Create = props => {
 
       Axios.post("http://localhost:8000/api/products", product)
           .then(res => navigate('/all'))
-          .catch(err => console.log(err))
+          .catch(err => {
+            console.log(err.response.data.errors)
+            setErrors(err.response.data.errors)
+          })
+            
     }
 
   return(
@@ -32,6 +42,7 @@ const Create = props => {
               submitValue="Create"
               handleInputChange={handleChange}
               handleSubmit={handleSubmit}
+              errors={errors}
           />
       </>
   )

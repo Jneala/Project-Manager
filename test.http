@@ -28,7 +28,7 @@ Content-Type:application/json
 
 ###
 
-DELETE http://localhost:8000/api/products/605ae8957fe1ad245623d920 HTTP/1.1
+DELETE http://localhost:8000/api/products/605af6dd4684a425387cf6af HTTP/1.1
 
 ###
 

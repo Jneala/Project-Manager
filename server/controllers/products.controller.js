@@ -24,7 +24,7 @@ module.exports ={
   destroy: (req,res) => {
     Product.deleteOne({_id:req.params.id})
     //the redirect lets our backend send this to the index, saving the front end an extra quiery to get a new set of items in the index after the delete.
-      .then(data => res.redirect('/api/products'))
+      .then(data => res.redirect(303,'/api/products'))
       .catch(err => res.status(404).json({errors:err.errors}))
   }
 }

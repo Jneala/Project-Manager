@@ -1,5 +1,5 @@
 const ProductForm = props => {
-    const {inputs, handleInputChange, handleSubmit, header, submitValue} = props;
+    const {inputs, handleInputChange, handleSubmit, header, submitValue, errors} = props;
 
     return(
       <form onSubmit={handleSubmit} className="col-8 mx-auto">
@@ -13,7 +13,10 @@ const ProductForm = props => {
           onChange={handleInputChange}
           value={inputs.title}
           />
-          <span className="text-danger"></span>
+          <span className="text-danger">
+            {errors.title ?
+                errors.title.message : ''}
+          </span>
         </div>
         <div className="form-group">
           <label htmlFor="price">Price</label>
@@ -24,7 +27,10 @@ const ProductForm = props => {
           onChange={handleInputChange}
           value={inputs.price}
           />
-          <span className="text-danger"></span>
+          <span className="text-danger">
+          {errors.price ?
+                errors.price.message : ''}
+          </span>
         </div>
         <div className="form-group">
           <label htmlFor="description">Description</label>
@@ -35,7 +41,10 @@ const ProductForm = props => {
           onChange={handleInputChange}
           value={inputs.description}
           />
-          <span className="text-danger"></span>
+          <span className="text-danger">
+          {errors.description ?
+                errors.description.message : ''}
+          </span>
         </div>
         <input type="submit" value={submitValue} className="btn btn-primary"/>
       </form>
