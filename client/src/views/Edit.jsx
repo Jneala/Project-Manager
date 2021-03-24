@@ -29,7 +29,7 @@ const Edit = props => {
       e.preventDefault();
 
       Axios.put(`http://localhost:8000/api/products/${props.id}`, product)
-          .then(res => navigate('/all'))
+          .then(res => navigate('/'))
           .catch(err => {
             console.log(err.response.data.errors)
             setErrors(err.response.data.errors)

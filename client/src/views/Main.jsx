@@ -12,11 +12,14 @@ const Main = props => {
             .catch(err => console.log(err))
     }, []);
 
-    const handleDestroyProduct = id => {
-        Axios.delete(`http://localhost/api/products/${id}`)
-            .then(res => setProducts(res.data.results))
+    const destroyProduct = id => {
+        Axios.delete(`http://localhost:8000/api/products/${id}`)
+            .then(res => handleDestroyProduct(id))
             .catch(err => console.log(err))
     }
+    const handleDestroyProduct = id => {
+      setProducts(products.filter(product => product._id !== id));
+  }
 
   return(
     <>
@@ -45,7 +48,7 @@ const Main = props => {
                     <Link className="btn btn-warning" to={`/edit/${p._id}`}>Edit</Link>
                     <button 
                     className="btn btn-danger"
-                    onClick={() => handleDestroyProduct(p._id)}>Delete</button>
+                    onClick={() => destroyProduct(p._id)}>Delete</button>
                     <Link to={`/show/${p._id}`} className="btn btn-success">View Product</Link>
 
                   </td>
