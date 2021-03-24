@@ -1,0 +1,40 @@
+import {useState} from 'react';
+import Axios from 'axios';
+import ProductForm from '../components/ProductForm';
+import { navigate } from '@reach/router';
+
+const Create = props => {
+    const [product, setProduct] = useState({
+      title: "",
+      price: null,
+      description: ""
+    })
+
+    const handleChange = e => {
+        setProduct({
+          ...product,
+          [e.target.name] : e.target.value
+        })
+    }
+    const handleSubmit = e => {
+      e.preventDefault();
+
+      Axios.post("http://localhost:8000/api/products", product)
+          .then(res => navigate('/all'))
+          .catch(err => console.log(err))
+    }
+
+  return(
+      <>
+          <ProductForm
+              inputs={product}
+              header="Create Product"
+              submitValue="Create"
+              handleInputChange={handleChange}
+              handleSubmit={handleSubmit}
+          />
+      </>
+  )
+}
+
+export default Create;
